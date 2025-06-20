@@ -1,4 +1,4 @@
-﻿using BuldingBlocks.CQRS;
+﻿
 
 namespace Catalog.API.Products.CreateProduct
 {
@@ -9,25 +9,26 @@ namespace Catalog.API.Products.CreateProduct
         decimal Price,
         List<string> Category
     //) : IRequest<CreateProductResponse>;
-    ) : ICommand<CreateProductResponse>;
-    public record CreateProductResponse(
+    ) : ICommand<CreateProductResult>;
+    public record CreateProductResult(
         Guid Id
     );
     //internal class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CreateProductResponse>
-    internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CreateProductResponse>
+    internal class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
-        public async Task<CreateProductResponse> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+        public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             var product = new Models.Product
             {
-                Id = Guid.NewGuid(),
                 Name = command.Name,
                 Description = command.Description,
                 ImageFile = command.ImageFile,
                 Price = command.Price,
                 Category = command.Category
             };
-            return new CreateProductResponse(product.Id);
+            session.Store(product);
+            await session.SaveChangesAsync(cancellationToken);
+            return new CreateProductResult(product.Id);
         }
     }
 }
