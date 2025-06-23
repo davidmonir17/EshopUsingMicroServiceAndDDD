@@ -1,5 +1,7 @@
 ﻿
 
+using FluentValidation;
+
 namespace Catalog.API.Products.CreateProduct
 {
     public record CreateProductCommand(
@@ -13,6 +15,16 @@ namespace Catalog.API.Products.CreateProduct
     public record CreateProductResult(
         Guid Id
     );
+    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+    {
+        public CreateProductCommandValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is Required");
+            RuleFor(x => x.Category).NotEmpty().WithMessage("Category is Required");
+            RuleFor(x => x.ImageFile).NotEmpty().WithMessage("ImageFile is Required");
+            RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price is must be greater than 0");
+        }
+    }
     //internal class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CreateProductResponse>
     internal class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
