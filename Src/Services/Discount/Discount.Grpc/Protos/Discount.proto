@@ -1,0 +1,33 @@
+syntax="proto3";   //which protpcol buffer version to use
+option csharp_namespace="Discount.Grpc"; //namespace for C# code generation
+package discount; //package name for the generated code
+ 
+// The service definition for managing discounts
+service DiscountService {
+  rpc GetDiscount (GetDiscountRequest) returns (couponModel);
+  rpc CreateDiscount (CreateDiscountRequest) returns (couponModel);
+  rpc UpdateDiscount (UpdateDiscountRequest) returns (couponModel);
+  rpc DeleteDiscount (DeleteDiscountRequest) returns (DeleteDiscountResponse);
+}
+// this message is used to request a discount for a specific product
+message GetDiscountRequest {
+  string productName = 1;
+}
+message couponModel {
+  int32 id = 1;
+  string productName = 2;
+  string description = 3;
+  double discountAmount = 5;
+}
+message CreateDiscountRequest {
+  couponModel Coupon = 1;
+}
+message UpdateDiscountRequest {
+  couponModel Coupon = 1;
+}
+message DeleteDiscountRequest {
+  string productName = 1;
+}
+message DeleteDiscountResponse {
+  bool success = 1;
+}
