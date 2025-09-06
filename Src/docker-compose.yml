@@ -8,6 +8,8 @@ services:
 
   destributedcache:
      image: redis
+  OrdersDb:
+     image: mcr.microsoft.com/mssql/server:2019-latest
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
