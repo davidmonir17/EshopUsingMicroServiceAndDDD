@@ -31,7 +31,7 @@ namespace Ordering.Infrastracture.Data.Extensions
                 var order1 = Order.Create(
                     OrderId.Of(Guid.NewGuid()),
                     CustomerId.Of(Guid.Parse("78a45e94-5bfd-456a-a971-650144db051a")),
-                    OrderName.Of("Order 1"),
+                    OrderName.Of("Ord_1"),
                     address1,
                     address2,
                     Payment.Of("1234567890123456", "David Mounir","12/25", "123",2)
@@ -41,7 +41,7 @@ namespace Ordering.Infrastracture.Data.Extensions
                 var order2 = Order.Create(
                     OrderId.Of(Guid.NewGuid()),
                     CustomerId.Of(Guid.Parse("f97a9f10-6d86-44a5-91a3-7e90c275c88b")),
-                    OrderName.Of("Order 2"),
+                    OrderName.Of("Ord_2"),
                     address1,
                     address2,
                     Payment.Of("1234567890123456", "Andrew","12/25", "123",2)
