@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Ordering.Application.Data;
 using Ordering.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Infrastracture.Data
 {
-    public class ApllicationDbContext : DbContext
+    public class ApllicationDbContext : DbContext,IApplicationDbContext
     {
         public ApllicationDbContext(DbContextOptions<ApllicationDbContext> options) : base(options)
         {
