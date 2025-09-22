@@ -11,7 +11,10 @@ namespace Ordering.Application.Orders.Commands.UpdateOrder
         public async Task<UpdateOrderResult> Handle(UpdateOrderCommand Command, CancellationToken cancellationToken)
         {
             var orderId= OrderId.Of(Command.Order.Id);
-            var order = await dbContext.Orders.FindAsync(orderId, cancellationToken);
+            //var order = await dbContext.Orders.FindAsync(orderId, cancellationToken);
+            var order = await dbContext.Orders
+    .Include(o => o.OrderItems)
+    .FirstOrDefaultAsync(o => o.Id == orderId, cancellationToken);
             if (order == null)
             {
                 throw new OrderNotFoundException(Command.Order.Id);

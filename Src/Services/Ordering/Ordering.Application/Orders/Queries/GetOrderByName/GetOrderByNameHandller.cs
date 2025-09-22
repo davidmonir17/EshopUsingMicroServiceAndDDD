@@ -11,7 +11,7 @@ namespace Ordering.Application.Orders.Queries.GetOrderByName
     {
         public async Task<GetOrderByNameResult> Handle(GetOrderByNameQuery Query, CancellationToken cancellationToken)
         {
-            var order= await dbContext.Orders.Include(o=>o.OrderItems).AsNoTracking().Where(o=>o.OrderName.Value.Contains(Query.Name)).OrderBy(o=>o.OrderName).ToListAsync(cancellationToken);
+            var order= await dbContext.Orders.Include(o=>o.OrderItems).AsNoTracking().Where(o=>o.OrderName.Value.Contains(Query.Name)).OrderBy(o=>o.OrderName.Value).ToListAsync(cancellationToken);
 
             return new GetOrderByNameResult(order.ToOdrderDtosList());
 
