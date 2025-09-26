@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ordering.Application.Orders.EventHandller
+namespace Ordering.Application.Orders.EventHandller.Domain
 {
     internal class OrderUpdateEventHandller(ILogger<OrderUpdateEventHandller> logger) : INotificationHandler<OrderUpdateEvent>
     {

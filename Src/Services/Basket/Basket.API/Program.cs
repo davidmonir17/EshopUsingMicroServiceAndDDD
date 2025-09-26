@@ -1,8 +1,11 @@
 using BuldingBlocks.Exceptions.Handler;
 using Discount.Grpc;
+using BuildingBlocks.messaging.MassTransit;
 using Marten;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var assembly =typeof(Program).Assembly;
 
 builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>
@@ -43,6 +46,8 @@ builder.Services.AddGrpcClient<DiscountService.DiscountServiceClient>(options =>
     };
     return handler;
 });
+
+builder.Services.AddMessageBroker(builder.Configuration);
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 var app = builder.Build();
